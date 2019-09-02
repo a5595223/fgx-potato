@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Button from 'antd/es/button';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,6 +11,7 @@ const App: React.FC = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <Button type="primary">Button</Button>
         <a
           className="App-link"
           href="https://reactjs.org"
