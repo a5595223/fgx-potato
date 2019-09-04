@@ -1,12 +1,36 @@
 import * as React from 'react';
 // import Button from 'antd/es/button';
 import { Button } from 'antd';
+import axios from '../../axios/axios'
+
+interface IRouter {
+    history: any;
+}
+interface IIndexState {
+    user: any;
+}
 
 
-class Component extends React.Component<any> {
-    props: any;
+class Index extends React.Component<IRouter, IIndexState> {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: {}
+        }
+    }
 
-    Login = () => {
+    async componentWillMount() {
+        await this.getMe()
+    }
+
+    getMe = async () => {
+        try {
+            const response = await axios.get('me')
+            this.setState({ user: response.data })
+        } catch (e) { console.error(' 获取信息失败') }
+    }
+    Logout = () => {
+        localStorage.setItem('x-token', '')
         this.props.history.push('/login')
     }
 
@@ -14,11 +38,12 @@ class Component extends React.Component<any> {
         return (
             <div>
                 <div className='Component'>
-                    <Button onClick={this.Login}>登录</Button>
+                    <p>欢迎,{this.state.user && this.state.user.account}</p>
+                    <Button onClick={this.Logout}>注销</Button>
                 </div>
             </div>
         )
     }
 }
 
-export default Component
+export default Index
