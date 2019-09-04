@@ -4,6 +4,7 @@ import { Button } from 'antd';
 
 
 class Component extends React.Component<any> {
+    props: any;
 
     Login = () => {
         this.props.history.push('/login')

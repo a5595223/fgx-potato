@@ -48,6 +48,7 @@ class SignUp extends React.Component<any, ISignUpState> {
         const { account, password, passwordConformation } = this.state
         return (
             <div className='SignUp' id='SignUp'>
+                <h1>番茄闹钟注册</h1>
                 <Input
                     placeholder="请输入你的用户名"
                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -63,7 +64,7 @@ class SignUp extends React.Component<any, ISignUpState> {
 
                 <Input.Password prefix={<Icon type="medium" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入密码" value={password} onChange={this.onChangePassword} />
                 <Input.Password prefix={<Icon type="medium" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请确认密码" value={passwordConformation} onChange={this.onChangePasswordConformation} />
-                <Button onClick={this.submit}>注册</Button>
+                <Button type="primary" className="loginButton" onClick={this.submit}>注册</Button>
                 <p>如果你有账号，请立即<Link to="/login">登录</Link></p>
             </div>
         )
