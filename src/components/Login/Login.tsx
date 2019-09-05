@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Input, Tooltip, Icon, Button } from 'antd';
-import { Interface } from 'readline';
 import axios from '../../axios/axios'
 import { Link } from 'react-router-dom'
 import './Login.scss'
