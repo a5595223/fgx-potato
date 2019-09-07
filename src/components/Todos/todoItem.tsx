@@ -43,7 +43,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
                     onKeyUp={this.onkeyUpHandle} />
                 <div className="iconWrapper">
                     <Icon type="enter" />
-                    <Icon type="delete" theme="filled" onClick={e => this.update({ delete: true })} />
+                    <Icon type="delete" theme="filled" onClick={e => this.update({ deleted: true })} />
                 </div>
             </div>
         )

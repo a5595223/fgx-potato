@@ -14,14 +14,11 @@
             color: #a9a9a9;
         }
     }
-    >.editing,>.text{
-        flex: 1;
-         }
     >.editing{
         display: flex;
         justify-content: space-between;
         align-items: center;
-       padding: 0 8px;
+        
         >input{
             border: 0;
             outline: none;
@@ -29,6 +26,11 @@
             background: transparent;
         }
     } 
+    >.editing,>.text{
+        flex: 1;
+        padding: 0 8px;
+         }
+    
     >.iconWrapper>.action{
         margin-left:4px;
         color: #a9a9a9;
