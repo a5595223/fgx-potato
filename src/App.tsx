@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Router, Route } from "react-router-dom";
 import history from './axios/history'
-import Index from './components/Index/Index'
+import Index from './components/Home/Home'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 
