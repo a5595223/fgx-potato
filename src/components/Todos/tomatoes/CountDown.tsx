@@ -1,8 +1,11 @@
 import * as React from 'react';
+import './CountDown.scss'
 
 interface ICountDownProps {
     timer: number
+    duration: number;
     onFinish: () => void
+
 }
 interface ICountDownState {
     countDown: number
@@ -16,12 +19,20 @@ class CountDown extends React.Component<ICountDownProps, ICountDownState> {
             countDown: this.props.timer
         }
     }
-
+    get countDown() {
+        const min = Math.floor(this.state.countDown / 1000 / 60)
+        const second = Math.floor(this.state.countDown / 1000 % 60)
+        return `${min < 10 ? `0${min}` : min
+            }: ${second < 10 ? `0${second}` : second} `
+    }
     componentDidMount() {
         timerId = setInterval(() => {
+            document.title = `${this.countDown} - Fgx番茄App`
             const time = this.state.countDown
+
             this.setState({ countDown: time - 1000 })
-            if (time < 0) {
+            if (time < 1000) {
+                document.title = `Fgx番茄App`
                 this.props.onFinish()
                 clearInterval(timerId)
             }
@@ -31,14 +42,13 @@ class CountDown extends React.Component<ICountDownProps, ICountDownState> {
     componentWillUnmount() {
         clearInterval(timerId)
     }
-    render() {
-        const min = Math.floor(this.state.countDown / 1000 / 60)
-        const second = Math.floor(this.state.countDown / 1000 % 60)
-        const time = `${min}:${second < 10 ? `0${second}` : second}`
+    public render() {
+        const percent = 1 - this.state.countDown / this.props.duration
         return (
             <div className='CountDown' id='CountDown'>
-                {time}
-            </div>
+                <span className='restTime'>{this.countDown}</span>
+                <div className="progress" style={{ width: `${percent * 100}%` }} ></div>
+            </div >
         )
     }
 }

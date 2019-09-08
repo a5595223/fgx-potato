@@ -15,7 +15,7 @@ interface IIndexState {
 }
 const Logout = () => {
     localStorage.setItem('x-token', '')
-    this.props.history.push('/login')
+    history.push('/login')
 }
 
 const menu = (

@@ -1,0 +1,13 @@
+#TomatoAction{
+    .countDownWrapper,.InputWrapper{
+        position: relative;
+        
+        
+    }
+    .abort{
+        position: absolute;
+        right: -6px;top: -6px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+}
