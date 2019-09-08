@@ -5,7 +5,7 @@ import TodoItem from './todoItem'
 import { async } from 'q';
 import './todos.scss'
 import { connect } from 'react-redux'
-import { initTodos, updateTodo } from '../../redux/actions'
+import { initTodos, updateTodo } from '../../redux/actions/toods'
 
 
 class Todos extends React.Component<any> {
