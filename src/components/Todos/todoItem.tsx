@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { Checkbox, Icon } from 'antd';
 import classNames from 'classnames'
+import { editTodo, updateTodo } from '../../redux/actions'
+import { connect } from 'react-redux'
 import './todoItem.scss'
+import axios from '../../axios/axios'
 
 interface ITodoItemProps {
     id: number;
     description: string;
-    editing: boolean;
     completed: boolean;
-    update: (id: number, params: any) => void;
-    toEditing: (id: number) => void;
+    editing: boolean;
+    editTodo: (id: number) => any;
+    updateTodo: (payload: any) => any;
 }
+
 interface ITodoItemState {
-    editText: string
+    editText: string;
 }
 
 class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
@@ -22,47 +26,64 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
             editText: this.props.description
         }
     }
-    update = (params: any) => {
-        this.props.update(this.props.id, params)
-    }
-    toEditing = () => {
-        this.props.toEditing(this.props.id)
-    }
-    onkeyUpHandle = (e) => {
-        if (e.keyCode === 13 && this.state.editText !== '') {
-            this.update({ description: this.state.editText })
 
-
+    updateTodo = async (params: any) => {
+        try {
+            const response = await axios.put(`todos/${this.props.id}`, params)
+            this.props.updateTodo(response.data.resource)
+        } catch (e) {
+            throw new Error(e)
         }
     }
 
-    render() {
+    editTodo = () => {
+        this.props.editTodo(this.props.id)
+    }
+
+    onKeyUp = (e) => {
+        if (e.keyCode === 13 && this.state.editText !== '') {
+            this.updateTodo({ description: this.state.editText })
+        }
+    }
+
+    public render() {
         const Editing = (
             <div className="editing">
-                <input type="text" value={this.state.editText} onChange={e => { this.setState({ editText: e.target.value }) }}
-                    onKeyUp={this.onkeyUpHandle} />
+                <input type="text" value={this.state.editText}
+                    onChange={e => this.setState({ editText: e.target.value })}
+                    onKeyUp={this.onKeyUp}
+                />
                 <div className="iconWrapper">
                     <Icon type="enter" />
-                    <Icon type="delete" theme="filled" onClick={e => this.update({ deleted: true })} />
+                    <Icon type="delete" theme="filled"
+                        onClick={e => this.updateTodo({ deleted: true })} />
                 </div>
             </div>
         )
-        const text = <span className="text" onDoubleClick={this.toEditing}>{this.props.description}</span>
+        const Text = <span className="text" onDoubleClick={this.editTodo}>{this.props.description}</span>
         const todoItemClass = classNames({
             TodoItem: true,
             editing: this.props.editing,
             completed: this.props.completed
         })
         return (
-            <div className={todoItemClass} id='TodoItem'>
-                <Checkbox checked={this.props.completed} onChange={e => this.update({ completed: e.target.checked })}></Checkbox>
-                {
-                    this.props.editing ? Editing : text
-
-                }
+            <div className={todoItemClass} id="TodoItem">
+                <Checkbox checked={this.props.completed}
+                    onChange={e => this.updateTodo({ completed: e.target.checked })}
+                />
+                {this.props.editing ? Editing : Text}
             </div>
-        )
+        );
     }
 }
 
-export default TodoItem;
+const mapStateToProps = (state, ownProps) => ({
+    ...ownProps
+})
+
+const mapDispatchToProps = {
+    editTodo,
+    updateTodo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

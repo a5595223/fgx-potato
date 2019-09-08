@@ -3,6 +3,7 @@ import { Input, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { addTodo } from '../../redux/actions'
 import axios from '../../axios/axios'
+import history from '../../axios/history'
 
 interface ITodoInputState {
     description: string
@@ -29,10 +30,13 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
     }
     postTodo = async () => {
 
-        const response = await axios.post('todos', { description: this.state.description })
-        this.props.addTodo(response.data.resource)
+        try {
+            const response = await axios.post('todos', { description: this.state.description })
+            this.props.addTodo(response.data.resource)
 
-        // this.props.addTodo()
+        } catch (e) {
+            history.go(0)
+        }
         this.setState({ description: '' })
     }
 

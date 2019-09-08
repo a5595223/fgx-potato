@@ -4,6 +4,7 @@ import { Button, Dropdown, Icon, Menu } from 'antd';
 import Todos from '../../components/Todos/todos'
 import axios from '../../axios/axios'
 import history from '../../axios/history'
+import Tomatoes from '../Todos/tomatoes/tomatoes'
 import './Home.scss'
 
 interface IRouter {
@@ -75,6 +76,7 @@ class Home extends React.Component<IRouter, IIndexState> {
                         <Button onClick={this.Logout}>注销</Button> */}
                     </header>
                     <main>
+                        <Tomatoes />
                         <Todos></Todos>
                     </main>
                 </div>
