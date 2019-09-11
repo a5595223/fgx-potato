@@ -52,7 +52,7 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (_state, ownProps) => ({
     ...ownProps
 })
 
