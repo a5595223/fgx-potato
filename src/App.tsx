@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { Router, Route } from "react-router-dom";
-import history from './axios/history'
-import Index from './components/Home/Home'
+import {Router, Route} from 'react-router-dom'
+import history from './config/history'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
+import Home from './components/Home/Home'
 
+class App extends React.Component{
 
-const App = () => {
-  return (
-    <Router history={history}>
-      <div>
-        <Route exact={true} path="/" component={Index as any} />
-        <Route path="/Login" component={Login as any} />
-        <Route path="/signUp" component={SignUp as any} />
-      </div>
-
-    </Router >
-  )
+	render(){
+		return (
+			<Router history={history}>
+				<div>
+					<Route exact={true} path="/" component={Home}/>
+					<Route path="/login" component={Login}/>
+					<Route path="/signUp" component={SignUp}/>
+				</div>
+			</Router>
+		)
+	}
 }
-
 
 export default App
